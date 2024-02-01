@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System.Runtime.CompilerServices;
 
 namespace TaskManagement.Api.Features.People.UpdatePerson;
 
@@ -27,7 +26,7 @@ public class UpdatePerson : ControllerBase
         var validationResult = _validator.Validate(command);
         if (validationResult is null)
         {
-            return BadRequest(validationResult.ToDictionary());
+            return BadRequest(validationResult!.ToDictionary());
         }
 
         await _mediator.Send(command);

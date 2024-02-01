@@ -15,10 +15,10 @@ namespace TaskManagement.Api.Features.People.CreatePerson
         public async Task<int> Handle(Command request, CancellationToken cancellationToken)
         {
             var person = new Person(
-                request.FirstName,
-                request.LastName,
+                request.FirstName!,
+                request.LastName!,
                 request.Email,
-                request.PhoneNumber);
+                request.PhoneNumber!);
 
             await _context.Tbl_Persons.AddAsync(person);
             await _context.SaveChangesAsync();

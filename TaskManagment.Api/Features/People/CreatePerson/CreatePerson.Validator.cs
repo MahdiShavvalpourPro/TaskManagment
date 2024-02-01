@@ -22,24 +22,24 @@ public class Validator : AbstractValidator<Command>
            .WithMessage("last name must not exceed 50 characters.");
 
         RuleFor(x => x.Email)
-            .MustAsync(BeUniqueEmail)
-            .WithMessage("this email already exists.")
             .NotEmpty()
             .WithMessage("Email Is Required")
             .EmailAddress()
-            .WithMessage("")
+            .WithMessage("this email is not valid")
             .MaximumLength(100)
-            .WithMessage("email must not exceed 100 characters . ");
+            .WithMessage("email must not exceed 100 characters . ")
+            .MustAsync(BeUniqueEmail)
+            .WithMessage("this email already exists.");
 
         RuleFor(p => p.PhoneNumber)
-       .MustAsync(BeUniqueMobileNumber)
-       .WithMessage("this phone number already exists.")
        .MinimumLength(11)
        .WithMessage("PhoneNumber must not be less than 11 characters.")
        .MaximumLength(11)
        .WithMessage("PhoneNumber must not exceed 11 characters.")
        .Matches(new Regex("^(\\+98|0)?9\\d{9}$"))
-       .WithMessage("PhoneNumber not valid");
+       .WithMessage("PhoneNumber not valid")
+       .MustAsync(BeUniqueMobileNumber)
+       .WithMessage("this phone number already exists.");
     }
 
     private Task<bool> BeUniqueMobileNumber(string phoneNumber,
